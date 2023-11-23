@@ -1,0 +1,426 @@
+{
+  "Stonehaven": {
+    "Bedroom #1 Main Level": {
+      "maxGuests": 2,
+      "beds": [
+        {
+          "bed": "Queen",
+          "price": "$10",
+          "reserved": true,
+          "guest": "Roan",
+          "email": "roanrrmk@gmail.com"
+        }
+      ],
+      "totalPrice": "$10"
+    },
+    "Bedroom #2 Main Level": {
+      "maxGuests": 2,
+      "beds": [
+        {
+          "bed": "Queen",
+          "price": "$10",
+          "reserved": true,
+          "guest": "Roan",
+          "email": "roanrrmk@gmail.com"
+        }
+      ],
+      "totalPrice": "$10"
+    },
+    "Bedroom #3 Upper Level": {
+      "maxGuests": 2,
+      "beds": [
+        {
+          "bed": "Queen",
+          "price": "$10",
+          "reserved": true,
+          "guest": "Keegan",
+          "email": "kKirwin@gmail.com"
+        }
+      ],
+      "totalPrice": "$10"
+    },
+    "Bedroom #4 Upper Level": {
+      "maxGuests": 2,
+      "beds": [
+        {
+          "bed": "Queen",
+          "price": "$10",
+          "reserved": true,
+          "guest": "Keegan",
+          "email": "kKirwin@gmail.com"
+        }
+      ],
+      "totalPrice": "$10"
+    },
+    "Bedroom #5 Upper Level Master": {
+      "maxGuests": 2,
+      "beds": [
+        {
+          "bed": "Queen",
+          "price": "$10",
+          "reserved": true,
+          "guest": "Dave",
+          "email": "l@c.com"
+        },
+        {
+          "bed": "Whirlpool Tub",
+          "price": "$10",
+          "reserved": true,
+          "guest": "Dave",
+          "email": "l@c.com"
+        }
+      ],
+      "totalPrice": "$20"
+    },
+    "Dorm Room": {
+      "maxGuests": 3,
+      "beds": [
+        {
+          "bed": "Twin #1",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        },
+        {
+          "bed": "Twin #2",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        },
+        {
+          "bed": "Twin #3",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        }
+      ],
+      "totalPrice": "$30"
+    }
+  },
+  "Blue Jays Nest": {
+    "Bedroom #1": {
+      "maxGuests": 3,
+      "beds": [
+        {
+          "bed": "Queen",
+          "price": "$10",
+          "reserved": true,
+          "guest": "Roan",
+          "email": "roanrrmk"
+        },
+        {
+          "bed": "Twin Futon",
+          "price": "$10",
+          "reserved": true,
+          "guest": "Roan",
+          "email": "roanrrmk"
+        }
+      ],
+      "totalPrice": "$20"
+    },
+    "Bedroom #2": {
+      "maxGuests": 2,
+      "beds": [
+        {
+          "bed": "Queen",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        }
+      ],
+      "totalPrice": "$10"
+    },
+    "Bedroom #3": {
+      "maxGuests": 2,
+      "beds": [
+        {
+          "bed": "Queen",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        }
+      ],
+      "totalPrice": "$10"
+    },
+    "Bedroom #4": {
+      "maxGuests": 4,
+      "beds": [
+        {
+          "bed": "Queen",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        },
+        {
+          "bed": "Twin Bunk Top",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        },
+        {
+          "bed": "Twin Bunk Bottom",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        }
+      ],
+      "totalPrice": "$30"
+    }
+  },
+  "Mountain Escape": {
+    "Bedroom #1": {
+      "maxGuests": 4,
+      "beds": [
+        {
+          "bed": "King",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        },
+        {
+          "bed": "Double Bunk Top",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        },
+        {
+          "bed": "Double Bunk Bottom",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        }
+      ],
+      "totalPrice": "$30"
+    },
+    "Bedroom #2": {
+      "maxGuests": 2,
+      "beds": [
+        {
+          "bed": "Queen",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        }
+      ],
+      "totalPrice": "$10"
+    },
+    "Bedroom #3": {
+      "maxGuests": 2,
+      "beds": [
+        {
+          "bed": "Queen",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        }
+      ],
+      "totalPrice": "$10"
+    },
+    "Bedroom #4": {
+      "maxGuests": 4,
+      "beds": [
+        {
+          "bed": "Double Bunk #1 Top",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        },
+        {
+          "bed": "Double Bunk #1 Bottom",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        },
+        {
+          "bed": "Twin Bunk #2 Top",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        },
+        {
+          "bed": "Double Bunk #2 Bottom",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        }
+      ],
+      "totalPrice": "$40"
+    },
+    "Bedroom #5": {
+      "maxGuests": 2,
+      "beds": [
+        {
+          "bed": "Double Bunk #1 Top",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        },
+        {
+          "bed": "Double Bunk #1 Bottom",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        },
+        {
+          "bed": "Double Bunk #2 Top",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        },
+        {
+          "bed": "Double Bunk #2 Bottom",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        }
+      ],
+      "totalPrice": "$40"
+    },
+    "Bedroom #6": {
+      "maxGuests": 2,
+      "beds": [
+        {
+          "bed": "Double Bunk #1 Top",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        },
+        {
+          "bed": "Double Bunk #1 Bottom",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        },
+        {
+          "bed": "Double Bunk #2 Top",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        },
+        {
+          "bed": "Double Bunk #2 Bottom",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        }
+      ],
+      "totalPrice": "$40"
+    },
+    "Bedroom #7": {
+      "maxGuests": 2,
+      "beds": [
+        {
+          "bed": "King",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        }
+      ],
+      "totalPrice": "$10"
+    }
+  },
+  "Hot Tub": {
+    "Bedroom #1": {
+      "maxGuests": 5,
+      "beds": [
+        {
+          "bed": "Queen #1",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        },
+        {
+          "bed": "Queen #2",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        },
+        {
+          "bed": "Twin",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        }
+      ],
+      "totalPrice": "$30"
+    },
+    "Bedroom #2": {
+      "maxGuests": 2,
+      "beds": [
+        {
+          "bed": "Queen",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        }
+      ],
+      "totalPrice": "$10"
+    },
+    "Bedroom #3": {
+      "maxGuests": 2,
+      "beds": [
+        {
+          "bed": "King",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        }
+      ],
+      "totalPrice": "$10"
+    },
+    "Bedroom #4": {
+      "maxGuests": 4,
+      "beds": [
+        {
+          "bed": "Queen #1",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        },
+        {
+          "bed": "Queen #2",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        }
+      ],
+      "totalPrice": "$20"
+    },
+    "Bedroom #5": {
+      "maxGuests": 6,
+      "beds": [
+        {
+          "bed": "Double #1",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        },
+        {
+          "bed": "Double #2",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        },
+        {
+          "bed": "Queen",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        },
+        {
+          "bed": "Twin #1",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        },
+        {
+          "bed": "Twin #2",
+          "price": "$10",
+          "reserved": false,
+          "guest": ""
+        }
+      ],
+      "totalPrice": "$50"
+    }
+  }
+}

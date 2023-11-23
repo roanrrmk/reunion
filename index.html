@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Family Reunion Room Reservations</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .room {
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .room h2 {
+        color: #333;
+        font-size: 24px;
+    }
+
+    .room p {
+        color: #666;
+        font-size: 16px;
+    }
+
+    .checkbox {
+        display: inline-block;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 2px;
+        margin-right: 5px;
+    }
+
+    #checkout {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background-color: white;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        width: 30%;
+    }
+
+    #checkout p {
+        margin: 0 0 10px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+    }
+</style>
+
+<body>
+
+    <h1>Family Reunion Room Reservations</h1>
+
+
+    <div id="rooms"></div>
+
+    <script>
+        // Load JSON data
+        let roomsData = null;
+        fetch('roomsData.json')
+            .then(response => response.json())
+            .then(data => {
+                // Display rooms
+                displayRooms(data);
+                // Save rooms data
+                roomsData = data;
+                readReservationData();
+            });
+
+        function displayRooms(roomsData) {
+            let tabsHTML = '<div id="tabs"><ul>';
+            let roomsHTML = "";
+
+            for (let house in roomsData) {
+                let safeHouse = sanitize(house);
+                tabsHTML += `<li><a href="#${safeHouse}">${house}</a></li>`;
+                roomsHTML += createHouseHTML(house, roomsData[house]);
+            }
+
+            tabsHTML += '</ul>' + roomsHTML + '</div>';
+            document.getElementById("rooms").innerHTML = tabsHTML;
+
+            // Initialize tabs
+            $(function () {
+                $("#tabs").tabs();
+            });
+        }
+
+        function sanitize(input) {
+            return input.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+        }
+
+        function createHouseHTML(house, houseData) {
+            let houseHTML = `<div id="${sanitize(house)}"><h2>${house}</h2>`;
+
+            for (let room in houseData) {
+                houseHTML += createRoomHTML(room, houseData[room], house);
+            }
+
+            houseHTML += '</div>';
+            return houseHTML;
+        }
+
+        function createRoomHTML(room, roomData, house) {
+            let roomHTML = `
+                <div id="${sanitize(house)}_${sanitize(room)}" class="room">
+                    <h3>${room}</h3>
+                    <div>Max Guests: ${roomData.maxGuests}</div>
+                    <div>Beds:</div>
+                    <ul>
+            `;
+
+            for (let bed in roomData.beds) {
+                roomHTML += createBedHTML(bed, roomData.beds[bed], house, room, roomData.beds.length);
+            }
+
+            roomHTML += `
+                    </ul>
+                    <div>Total Price: ${roomData.totalPrice}</div>
+                    <div class="checkbox">
+                        <input type="checkbox" onchange="reserveRoom('${house}', '${room}', this.checked)">
+                        Reserve Room
+                    </div>
+                </div>
+            `;
+
+            return roomHTML;
+        }
+
+        function createBedHTML(bed, bedData, house, room, bedCount) {
+            let bedHTML = `
+                <li>
+                    <div id="${sanitize(house)}_${sanitize(room)}_${sanitize(bed)}" class="bed">
+                        ${bedData.bed} - ${bedData.price}
+                        <span id="${sanitize(house)}_${sanitize(room)}_${sanitize(bed)}_reservedBy"></span>
+            `;
+
+            if (bedCount > 1) {
+                bedHTML += `
+                    <div class="checkbox">
+                        <input type="checkbox" onchange="reserve('${house}', '${room}', '${bed}', this.checked)">
+                        Reserve Bed
+                    </div>
+                `;
+            }
+
+            bedHTML += '</li>';
+            return bedHTML;
+        }
+        // Read the reservation data from roomsData and checkmark and disable the appropriate checkboxes, if all beds in a room are reserved, checkmark and disable the room's checkbox
+        function readReservationData() {
+            for (let house in roomsData) {
+                for (let room in roomsData[house]) {
+                    let allBedsReserved = true;
+                    for (let bed in roomsData[house][room].beds) {
+                        if (roomsData[house][room].beds[bed].reserved) {
+                            let reservedBySpan = document.getElementById(`${house.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_${room.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_${bed.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_reservedBy`);
+                            reservedBySpan.innerHTML = `<strong>Reserved by:</strong> ${roomsData[house][room].beds[bed].guest}`;
+                            try {
+                                document.getElementById(`${house.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_${room.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_${bed.replace(/[^a-z0-9]/gi, '_').toLowerCase()}`).querySelector('input[type="checkbox"]').checked = true;
+                                document.getElementById(`${house.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_${room.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_${bed.replace(/[^a-z0-9]/gi, '_').toLowerCase()}`).querySelector('input[type="checkbox"]').disabled = true;
+                            }
+                            catch (err) {
+                                console.log(err);
+                            }
+                        } else {
+                            allBedsReserved = false;
+                        }
+                    }
+                    if (allBedsReserved) {
+                        let checkboxes = document.getElementById(`${house.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_${room.replace(/[^a-z0-9]/gi, '_').toLowerCase()}`).querySelectorAll('input[type="checkbox"]');
+                        let lastCheckbox = checkboxes[checkboxes.length - 1];
+                        lastCheckbox.checked = true;
+                        lastCheckbox.disabled = true;
+                    }
+                }
+            }
+        }
+
+        // Initialize total price
+        let totalPrice = 0;
+
+        // Display total price
+        function displayTotalPrice() {
+            document.getElementById("totalPrice").innerText = "Total Price: $" + totalPrice;
+        }
+
+
+        // Handle Bed reservations
+        function reserve(house, room, bed, checked) {
+            // Store reservation data in roomsData object
+            if (checked) {
+                roomsData[house][room].beds[bed].reserved = true;
+                // strip out the "$" and convert to a number
+                totalPrice += Number(roomsData[house][room].beds[bed].price.replace(/\$/g, ''));
+            } else {
+                roomsData[house][room].beds[bed].reserved = false;
+                totalPrice -= Number(roomsData[house][room].beds[bed].price.replace(/\$/g, ''));
+            }
+            // Update total price display
+            // displayTotalPrice();
+            // Update checkout display
+            updateCheckout();
+        }
+
+        function reserveRoom(house, room, checked) {
+            // Store reservation data in roomsData object
+            // If the room is checked, reserve all beds using the reserve function
+            if (checked) {
+                for (let bed in roomsData[house][room].beds) {
+                    reserve(house, room, bed, true);
+                    // disable the bed's checkbox
+                    try {
+                        document.getElementById(`${house.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_${room.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_${bed.replace(/[^a-z0-9]/gi, '_').toLowerCase()}`).querySelector('input[type="checkbox"]').disabled = true;
+                        document.getElementById(`${house.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_${room.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_${bed.replace(/[^a-z0-9]/gi, '_').toLowerCase()}`).querySelector('input[type="checkbox"]').checked = true;
+                    }
+                    catch (err) {
+                        console.log(err);
+                    }
+                }
+            } else {
+                for (let bed in roomsData[house][room].beds) {
+                    reserve(house, room, bed, false);// disable the bed's checkbox
+                    try {
+                        document.getElementById(`${house.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_${room.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_${bed.replace(/[^a-z0-9]/gi, '_').toLowerCase()}`).querySelector('input[type="checkbox"]').checked = false;
+                        document.getElementById(`${house.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_${room.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_${bed.replace(/[^a-z0-9]/gi, '_').toLowerCase()}`).querySelector('input[type="checkbox"]').disabled = false;
+                    } catch (err) {
+                        console.log(err);
+                    }
+                }
+
+            }
+        }
+        function updateCheckout() {
+            let summaryHTML = '';
+            let totalCost = 0;
+
+            for (let house in roomsData) {
+                for (let room in roomsData[house]) {
+                    for (let bed in roomsData[house][room].beds) {
+                        if (roomsData[house][room].beds[bed].reserved && roomsData[house][room].beds[bed].guest === '') {
+                            summaryHTML += `<p>${house} - ${room} - ${roomsData[house][room].beds[bed].bed}: ${roomsData[house][room].beds[bed].price}</p>`;
+                            totalCost += Number(roomsData[house][room].beds[bed].price.replace(/\$/g, ''));
+                        }
+                    }
+                }
+            }
+
+            document.getElementById('summary').innerHTML = summaryHTML;
+            document.getElementById('total').innerText = 'Total Cost: $' + totalCost;
+        }
+
+        // Initialize total price display
+        document.body.insertAdjacentHTML("beforeend", `
+    <div id="checkout">
+        <h2>Checkout</h2>
+        <div id="summary"></div>
+        <div id="total"></div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+        <button id="updateData">Reserve</button>
+    </div>
+`);
+
+        // Disable the button by default
+        document.getElementById('updateData').disabled = true;
+
+        // Add event listeners to the name and email fields
+        document.getElementById('name').addEventListener('input', enableButton);
+        document.getElementById('email').addEventListener('input', enableButton);
+
+        function enableButton() {
+            // Get the name and email fields
+            var name = document.getElementById('name');
+            var email = document.getElementById('email');
+
+            // Enable the button if both fields have content
+            if (name.value && email.value) {
+                document.getElementById('updateData').disabled = false;
+            } else {
+                document.getElementById('updateData').disabled = true;
+            }
+        }
+        updateCheckout();
+        document.getElementById('updateData').addEventListener('click', updateData);
+        // Send the reservation data to the server
+        function updateData() {
+            updateGuestData();
+            fetch('http://127.0.0.1:3000/updateData', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(roomsData),
+            })
+                .then(response => response.json())
+                .then(data => console.log('Success:', data))
+                .catch((error) => console.error('Error:', error));
+        }
+        // Go through all the beds and rooms and check if they're reserved, if they are, add the name and email to the correspoinding guest property in roomsData
+        function updateGuestData() {
+            for (let house in roomsData) {
+                for (let room in roomsData[house]) {
+                    for (let bed in roomsData[house][room].beds) {
+                        if (roomsData[house][room].beds[bed].reserved && roomsData[house][room].beds[bed].guest === '') {
+                            roomsData[house][room].beds[bed].guest = document.getElementById('name').value;
+                            roomsData[house][room].beds[bed].email = document.getElementById('email').value;
+                        }
+                    }
+                }
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
