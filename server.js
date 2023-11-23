@@ -1,5 +1,6 @@
 const express = require('express');
 var liveServer = require("live-server");
+const path = require('path');
 
 const fs = require('fs');
 
@@ -61,9 +62,21 @@ app.post('/updateData', (req, res) => {
     res.send({ status: 'Success', message: 'Data written to file' });
 });
 
-app.listen(3000, () => console.log('Server running on port 3000'));
+app.get('/getData', (req, res) => {
+    fs.readFile('roomsData.json', (err, data) => {
+        if (err) throw err;
+        res.send(data);
+    });
+});
 
-var params = {
-	file: "index.html", // When set, serve this file (server root relative) for every 404 (useful for single-page applications)
-};
-liveServer.start(params);
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '/index.html'));
+});
+
+app.listen(80, () => console.log('Server running on port 80'));
+
+// var params = {
+// 	file: "index.html", // When set, serve this file (server root relative) for every 404 (useful for single-page applications),
+//     port: 80, // Set the server port. Defaults to 8080.
+// };
+// liveServer.start(params);

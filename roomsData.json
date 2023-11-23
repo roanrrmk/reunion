@@ -78,20 +78,23 @@
         {
           "bed": "Twin #1",
           "price": "$10",
-          "reserved": false,
-          "guest": ""
+          "reserved": true,
+          "guest": "sdfs",
+          "email": "dsdf"
         },
         {
           "bed": "Twin #2",
           "price": "$10",
-          "reserved": false,
-          "guest": ""
+          "reserved": true,
+          "guest": "sdlkfs",
+          "email": "lskdjfs"
         },
         {
           "bed": "Twin #3",
           "price": "$10",
-          "reserved": false,
-          "guest": ""
+          "reserved": true,
+          "guest": "dfad",
+          "email": "asdf"
         }
       ],
       "totalPrice": "$30"
@@ -124,8 +127,9 @@
         {
           "bed": "Queen",
           "price": "$10",
-          "reserved": false,
-          "guest": ""
+          "reserved": true,
+          "guest": "sdf",
+          "email": "sdf"
         }
       ],
       "totalPrice": "$10"
@@ -136,8 +140,9 @@
         {
           "bed": "Queen",
           "price": "$10",
-          "reserved": false,
-          "guest": ""
+          "reserved": true,
+          "guest": "sdf",
+          "email": "sdf"
         }
       ],
       "totalPrice": "$10"
@@ -148,14 +153,16 @@
         {
           "bed": "Queen",
           "price": "$10",
-          "reserved": false,
-          "guest": ""
+          "reserved": true,
+          "guest": "sdf",
+          "email": "sdf"
         },
         {
           "bed": "Twin Bunk Top",
           "price": "$10",
-          "reserved": false,
-          "guest": ""
+          "reserved": true,
+          "guest": "sdf",
+          "email": "sdf"
         },
         {
           "bed": "Twin Bunk Bottom",

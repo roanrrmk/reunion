@@ -50,7 +50,7 @@
         width: 30%;
     }
 
-    #checkout p {
+    #summary p {
         margin: 0 0 10px;
         padding: 10px;
         background-color: #f9f9f9;
@@ -69,7 +69,7 @@
     <script>
         // Load JSON data
         let roomsData = null;
-        fetch('roomsData.json')
+        fetch('/getData')
             .then(response => response.json())
             .then(data => {
                 // Display rooms
@@ -300,7 +300,7 @@
         // Send the reservation data to the server
         function updateData() {
             updateGuestData();
-            fetch('http://127.0.0.1:3000/updateData', {
+            fetch('/updateData', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -308,7 +308,39 @@
                 body: JSON.stringify(roomsData),
             })
                 .then(response => response.json())
-                .then(data => console.log('Success:', data))
+                .then(data => {
+                    console.log('Success:', data);
+
+                    // Create the overlay
+                    let overlay = document.createElement('div');
+                    overlay.style.position = 'fixed';
+                    overlay.style.top = 0;
+                    overlay.style.left = 0;
+                    overlay.style.width = '100%';
+                    overlay.style.height = '100%';
+                    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+                    overlay.style.display = 'flex';
+                    overlay.style.justifyContent = 'center';
+                    overlay.style.alignItems = 'center';
+                    overlay.style.zIndex = 1000;
+
+                    // Create the popup
+                    let popup = document.createElement('div');
+                    popup.style.backgroundColor = 'white';
+                    popup.style.padding = '20px';
+                    popup.style.borderRadius = '10px';
+                    popup.textContent = 'Congratulations!';
+                    // Add the summary to the popup
+                    popup.appendChild(document.getElementById('summary').cloneNode(true));
+                    // Add the total to the popup
+                    popup.appendChild(document.getElementById('total').cloneNode(true));
+
+                    // Add the popup to the overlay
+                    overlay.appendChild(popup);
+
+                    // Add the overlay to the body
+                    document.body.appendChild(overlay);
+                })
                 .catch((error) => console.error('Error:', error));
         }
         // Go through all the beds and rooms and check if they're reserved, if they are, add the name and email to the correspoinding guest property in roomsData
