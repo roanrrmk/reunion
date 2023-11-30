@@ -330,7 +330,16 @@
                     popup.style.borderRadius = '10px';
                     popup.textContent = 'Congratulations!';
                     // Add the summary to the popup
-                    popup.appendChild(document.getElementById('summary').cloneNode(true));
+                    let summary = document.getElementById('summary').cloneNode(true);
+                    let inputs = summary.querySelectorAll('input[type="text"]');
+
+                    inputs.forEach(input => {
+                        let textNode = document.createTextNode(input.value);
+                        input.parentNode.replaceChild(textNode, input);
+                    });
+                    
+                    popup.appendChild(summary);
+
                     // Add the total to the popup
                     popup.appendChild(document.getElementById('total').cloneNode(true));
 
