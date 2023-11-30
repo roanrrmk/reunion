@@ -98,7 +98,9 @@
         }
 
         function createHouseHTML(house, houseData) {
-            let houseHTML = `<div id="${house}"><h2>${houseData.Name}</h2>`;
+            let houseHTML = `<div id="${house}">
+                <h2><a href="${houseData.URL}" target="_blank">${houseData.Name}</a></h2>
+                <p>${houseData.Description}</p>`;
 
             for (let room in houseData.Bedrooms) {
                 houseHTML += createRoomHTML(room, houseData.Bedrooms[room], house);
@@ -152,7 +154,8 @@
             bedHTML += '</li>';
             return bedHTML;
         }
-        // Read the reservation data from Data and checkmark and disable the appropriate checkboxes, if all beds in a room are reserved, checkmark and disable the room's checkbox
+        // Read the reservation data from Data and checkmark and disable the appropriate checkboxes, 
+        // if all beds in a room are reserved, checkmark and disable the room's checkbox
         function readReservationData() {
             for (let house in Data) {
                 for (let room in Data[house].Bedrooms) {
@@ -162,8 +165,10 @@
                             let reservedBySpan = document.getElementById(`${house}_${room}_${bed}_reservedBy`);
                             reservedBySpan.innerHTML = `<strong>Reserved by:</strong> ${Data[house].Bedrooms[room].beds[bed].guest}`;
                             try {
-                                document.getElementById(`${house}_${room}_${bed}`).querySelector('input[type="checkbox"]').checked = true;
-                                document.getElementById(`${house}_${room}_${bed}`).querySelector('input[type="checkbox"]').disabled = true;
+                                document.getElementById(`${house}_${room}_${bed}`)
+                                .querySelector('input[type="checkbox"]').checked = true;
+                                document.getElementById(`${house}_${room}_${bed}`)
+                                .querySelector('input[type="checkbox"]').disabled = true;
                             }
                             catch (err) {
                                 console.log(err);
@@ -245,8 +250,12 @@
                 for (let room in Data[house].Bedrooms) {
                     for (let bed in Data[house].Bedrooms[room].beds) {
                         if (Data[house].Bedrooms[room].beds[bed].reserved && Data[house].Bedrooms[room].beds[bed].guest === '') {
-                            summaryHTML += `<p>${Data[house].Name} - ${Data[house].Bedrooms[room].Name} - ${Data[house].Bedrooms[room].beds[bed].bed}: ${Data[house].Bedrooms[room].beds[bed].price}<br>`;
-                            summaryHTML += `<label for="name${bedIndex}">Name: </label><input type="text" id="name${house}_${room}_${bed}" name="name${bedIndex}"></p>`;
+                            summaryHTML += `<p>${Data[house].Name} - 
+                                ${Data[house].Bedrooms[room].Name} - 
+                                ${Data[house].Bedrooms[room].beds[bed].bed}: 
+                                ${Data[house].Bedrooms[room].beds[bed].price}<br>`;
+                            summaryHTML += `<label for="name${bedIndex}">Name: </label>
+                            <input type="text" id="name${house}_${room}_${bed}" name="name${bedIndex}"></p>`;
                             totalCost += Number(Data[house].Bedrooms[room].beds[bed].price.replace(/\$/g, ''));
                             bedIndex++;
                         }
@@ -337,7 +346,7 @@
                         let textNode = document.createTextNode(input.value);
                         input.parentNode.replaceChild(textNode, input);
                     });
-                    
+
                     popup.appendChild(summary);
 
                     // Add the total to the popup
