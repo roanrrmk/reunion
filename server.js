@@ -59,6 +59,12 @@ app.post('/updateData', (req, res) => {
         console.log('Data written to file');
     });
 
+    // Append data to log file
+    fs.appendFile('log.txt', JSON.stringify(req.body, null, 2) + '\n', (err) => {
+        if (err) throw err;
+        console.log('Data appended to file');
+    });
+
     res.send({ status: 'Success', message: 'Data written to file' });
 });
 
