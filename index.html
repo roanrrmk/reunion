@@ -345,7 +345,7 @@
         // Go through all the beds and rooms and check if they're reserved, if they are, add the name and email to the correspoinding guest property in Data
         function updateGuestData() {
             for (let house in Data) {
-                for (let room in Data[house]) {
+                for (let room in Data[house].Bedrooms) {
                     for (let bed in Data[house].Bedrooms[room].beds) {
                         if (Data[house].Bedrooms[room].beds[bed].reserved && Data[house].Bedrooms[room].beds[bed].guest === '') {
                             Data[house].Bedrooms[room].beds[bed].guest = document.getElementById(`name${house}_${room}_${bed}`).value;
