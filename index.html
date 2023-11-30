@@ -296,8 +296,9 @@
         }
 
         function enableButton(event) {
+            var email = document.getElementById('email');
             // Enable the button if all fields have content
-            if (checkAllInputsFilled()) {
+            if (checkAllInputsFilled() && email.value.trim() !== '') {
                 document.getElementById('updateData').disabled = false;
             } else {
                 document.getElementById('updateData').disabled = true;
