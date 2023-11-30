@@ -122,7 +122,6 @@
 
             roomHTML += `
                     </ul>
-                    <div>Total Price: ${roomData.totalPrice}</div>
                     <div class="checkbox">
                         <input type="checkbox" onchange="reserveRoom('${house}', '${room}', this.checked)">
                         Reserve Room
@@ -246,8 +245,8 @@
                 for (let room in Data[house].Bedrooms) {
                     for (let bed in Data[house].Bedrooms[room].beds) {
                         if (Data[house].Bedrooms[room].beds[bed].reserved && Data[house].Bedrooms[room].beds[bed].guest === '') {
-                            summaryHTML += `<p>${Data[house].Name} - ${Data[house].Bedrooms[room].Name} - ${Data[house].Bedrooms[room].beds[bed].bed}: ${Data[house].Bedrooms[room].beds[bed].price}</p>`;
-                            summaryHTML += `<label for="name${bedIndex}">Name:</label><input type="text" id="name${house}_${room}_${bed}" name="name${bedIndex}"><br>`;
+                            summaryHTML += `<p>${Data[house].Name} - ${Data[house].Bedrooms[room].Name} - ${Data[house].Bedrooms[room].beds[bed].bed}: ${Data[house].Bedrooms[room].beds[bed].price}<br>`;
+                            summaryHTML += `<label for="name${bedIndex}">Name: </label><input type="text" id="name${house}_${room}_${bed}" name="name${bedIndex}"></p>`;
                             totalCost += Number(Data[house].Bedrooms[room].beds[bed].price.replace(/\$/g, ''));
                             bedIndex++;
                         }
@@ -257,6 +256,11 @@
 
             document.getElementById('summary').innerHTML = summaryHTML;
             document.getElementById('total').innerText = 'Total Cost: $' + totalCost;
+            // Attach event listeners to the new name fields
+            let nameFields = document.querySelectorAll('input[type="text"]');
+            nameFields.forEach(field => field.addEventListener('input', enableButton));
+
+
         }
 
         // Initialize total price display
@@ -275,16 +279,16 @@
         document.getElementById('updateData').disabled = true;
 
         // Add event listeners to the name and email fields
-        document.getElementById('name').addEventListener('input', enableButton);
         document.getElementById('email').addEventListener('input', enableButton);
 
-        function enableButton() {
-            // Get the name and email fields
-            var name = document.getElementById('name');
-            var email = document.getElementById('email');
+        function checkAllInputsFilled() {
+            const inputs = document.querySelectorAll('input[type="text"]');
+            return Array.from(inputs).every(input => input.value.trim() !== '');
+        }
 
-            // Enable the button if both fields have content
-            if (name.value && email.value) {
+        function enableButton(event) {
+            // Enable the button if all fields have content
+            if (checkAllInputsFilled()) {
                 document.getElementById('updateData').disabled = false;
             } else {
                 document.getElementById('updateData').disabled = true;
