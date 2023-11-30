@@ -8,8 +8,8 @@
         "Name": "Bedroom #1",
         "beds": [
           {
-            "bed": "King",
-            "price": "$444",
+            "bed": "Queen",
+            "price": "$370",
             "reserved": false,
             "guest": ""
           }
@@ -19,8 +19,8 @@
         "Name": "Bedroom #2",
         "beds": [
           {
-            "bed": "King",
-            "price": "$444",
+            "bed": "Queen",
+            "price": "$370",
             "reserved": false,
             "guest": ""
           }
@@ -30,8 +30,8 @@
         "Name": "Bedroom #3",
         "beds": [
           {
-            "bed": "King",
-            "price": "$444",
+            "bed": "Queen",
+            "price": "$370",
             "reserved": false,
             "guest": ""
           }
@@ -41,8 +41,8 @@
         "Name": "Bedroom #4",
         "beds": [
           {
-            "bed": "King",
-            "price": "$444",
+            "bed": "Queen",
+            "price": "$370",
             "reserved": false,
             "guest": ""
           }
@@ -52,8 +52,8 @@
         "Name": "Bedroom #5",
         "beds": [
           {
-            "bed": "King",
-            "price": "$444",
+            "bed": "Queen",
+            "price": "$370",
             "reserved": false,
             "guest": ""
           }
